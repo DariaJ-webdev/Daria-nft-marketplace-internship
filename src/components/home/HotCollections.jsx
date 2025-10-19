@@ -5,7 +5,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import 'keen-slider/keen-slider.min.css'
 import {useKeenSlider} from 'keen-slider/react';
-import HotCollection from '../../css/styles/HotCollection.css';
+import '../../css/styles/HotCollection.css';
 //Keen slider used because it offers cleanest code and is easy to use. Added arrow controls too.
 
 
@@ -64,22 +64,29 @@ import HotCollection from '../../css/styles/HotCollection.css';
   };
 
  useEffect(() => {
-  const fetchData = async () => {
-            try {
-                const response = await axios.get('https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections');
-                console.log('API Response:', response.data);
-                
-                
-                setData(response.data);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            } finally {
-                setLoading(false); 
-            }
+    const fetchData = async () => {
+        
+        const fetchPromise = async () => {
+            const response = await axios.get('https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections');
+            console.log('API Response:', response.data);
+            return response.data;
         };
+        
+        const delayPromise = new Promise(resolve => setTimeout(resolve, 1500)); 
 
-        fetchData(); 
-    }, []); 
+        try {
+           
+            const [dataResult] = await Promise.all([fetchPromise(), delayPromise]);             
+            setData(dataResult);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        } finally {
+            setLoading(false); 
+        }
+    };
+
+    fetchData(); 
+  }, []);
 
 
   const SkeletonSlide = () => (
@@ -99,7 +106,7 @@ import HotCollection from '../../css/styles/HotCollection.css';
   </div>
 );
 
-{/* Added additional code for responsiveness in skeleton loading state */}
+
 const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
 useEffect(() => {
@@ -160,7 +167,7 @@ const getSkeletonCount = () => {
                 
                 <div className="nft_coll">
                   <div className="nft_wrap">
-                    <Link to={`/item-details/${collection.id}`}> 
+                    <Link to={`/item-details/${collection.nftId}`}> 
                       <img src={collection.nftImage} className="lazy img-fluid" alt={collection.title} />
                     </Link>
                   </div>
@@ -175,7 +182,7 @@ const getSkeletonCount = () => {
                     <i className="fa fa-check"></i>
                   </div>
                   <div className="nft_coll_info">
-                    <Link to="/explore">
+                    <Link to={`/explore/${collection.id}`}> {/*Check this link*/}
                       <h4>{collection.title}</h4>
                     </Link>
                     <span>{`ERC-${collection.code}`}</span>
@@ -194,6 +201,8 @@ const getSkeletonCount = () => {
                  onMouseDown={() => startSliding('prev')}
                  onMouseUp={stopSliding}
                  onMouseLeave={stopSliding}
+                 type="button"
+                 aria-label="Previous Slide"
                 
               >
                 &#9664; 
@@ -204,6 +213,8 @@ const getSkeletonCount = () => {
                  onMouseDown={() => startSliding('next')}
                  onMouseUp={stopSliding}
                  onMouseLeave={stopSliding}
+                 type="button"
+                 aria-label="Next Slide"
               >
                 &#9654; 
               </button>
@@ -215,10 +226,7 @@ const getSkeletonCount = () => {
         
       </div>
     </section>
-  );
-   
-  
-  
+  )
 };
 
 export default HotCollections;
