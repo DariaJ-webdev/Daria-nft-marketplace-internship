@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Skeleton from "../components/UI/Skeleton";
 import "../css/styles/HotCollection.css";
-import authorBanner from "../images/author_banner.jpg";
+//import authorBanner from "../images/author_banner.jpg"; vercel issue workaround//
 
 
 const Author = () => {
@@ -93,9 +93,9 @@ const Author = () => {
           id="profile_banner"
           aria-label="section"
           className="text-light"
-          data-bgimage={`url(${authorBanner}) top`}
+         // data-bgimage={`url(${authorBanner}) top`}vercel issue workaround//
           style={{
-            backgroundImage: `url(${authorBanner})`,
+            backgroundImage: `url(/images/author_banner.jpg`,
             backgroundPosition: "top",
             backgroundRepeat: "no-repeat",
           }}
