@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import Skeleton from '../UI/Skeleton';
 import React, {useState, useEffect} from 'react';
+import AuthorBannerImage from "../images/author_banner.jpg";
+
 
 const ItemCardSkeleton = ({ index }) => (
     <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12" key={index}>

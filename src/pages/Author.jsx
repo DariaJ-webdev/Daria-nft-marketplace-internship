@@ -6,6 +6,7 @@ import Skeleton from "../components/UI/Skeleton";
 import "../css/styles/HotCollection.css";
 import AuthorBannerImage from "../images/author_banner.jpg";
 
+
 const Author = () => {
   const { authorId } = useParams();
   const [author, setAuthor] = useState({});
