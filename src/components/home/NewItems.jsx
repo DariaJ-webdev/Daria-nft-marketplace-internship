@@ -50,7 +50,7 @@ const NewItems = () => {
   
     });
   
-    useEffect(() => {
+  useEffect(() => {
   
       if (instanceRef.current && items && typeof instanceRef.current.update === 'function') {
         instanceRef.current.update();
@@ -58,24 +58,40 @@ const NewItems = () => {
     }, [items, instanceRef]);
   
     const startSliding =(direction) => {
+      if (instanceRef.current) {
+          if (direction === 'next') {
+              instanceRef.current.next();
+          } else {
+              instanceRef.current.prev();
+          }
+      }
+  
       if (slideTimer){
         clearInterval(slideTimer);
+        clearTimeout(slideTimer);
       }
-      const timer = setInterval(() => {
-          if (instanceRef.current) {
-          if (direction === 'next') {
-            instanceRef.current.next();
-          } else {
-            instanceRef.current.prev();
-          }
-        }
-      },100);
-       setSlideTimer(timer);
+     
+      const initialTimer = setTimeout(() => {
+          const continuousTimer = setInterval(() => {
+              if (instanceRef.current) {
+                  if (direction === 'next') {
+                      instanceRef.current.next();
+                  } else {
+                      instanceRef.current.prev();
+                  }
+              }
+          }, 100); 
+          setSlideTimer(continuousTimer);
+      }, 200); 
+  
+       setSlideTimer(initialTimer); 
     };
+      
   
     const stopSliding = () => {
       if (slideTimer) {
         clearInterval(slideTimer);
+        clearTimeout(slideTimer);
         setSlideTimer(null); 
       }
     };

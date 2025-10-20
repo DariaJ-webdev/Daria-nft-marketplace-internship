@@ -41,25 +41,41 @@ import '../../css/styles/HotCollection.css';
   }, [data, instanceRef]);
 
   const startSliding =(direction) => {
+    if (instanceRef.current) {
+        if (direction === 'next') {
+            instanceRef.current.next();
+        } else {
+            instanceRef.current.prev();
+        }
+    }
+
     if (slideTimer){
       clearInterval(slideTimer);
+      clearTimeout(slideTimer);
     }
-    const timer = setInterval(() => {
-        if (instanceRef.current) {
-        if (direction === 'next') {
-          instanceRef.current.next();
-        } else {
-          instanceRef.current.prev();
-        }
-      }
-    },100);
-     setSlideTimer(timer);
+   
+    const initialTimer = setTimeout(() => {
+        const continuousTimer = setInterval(() => {
+            if (instanceRef.current) {
+                if (direction === 'next') {
+                    instanceRef.current.next();
+                } else {
+                    instanceRef.current.prev();
+                }
+            }
+        }, 100); 
+        setSlideTimer(continuousTimer);
+    }, 200); 
+
+     setSlideTimer(initialTimer); 
   };
+    
 
   const stopSliding = () => {
     if (slideTimer) {
       clearInterval(slideTimer);
-      setSlideTimer(null); // Clear the state
+      clearTimeout(slideTimer);
+      setSlideTimer(null); 
     }
   };
 
