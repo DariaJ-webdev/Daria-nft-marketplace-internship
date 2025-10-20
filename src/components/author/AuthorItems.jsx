@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import Skeleton from '../UI/Skeleton';
 import React, {useState, useEffect} from 'react';
-import AuthorBannerImage from "../images/author_banner.jpg";
+
 
 
 const ItemCardSkeleton = ({ index }) => (

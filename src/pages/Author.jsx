@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Skeleton from "../components/UI/Skeleton";
 import "../css/styles/HotCollection.css";
-import AuthorBannerImage from "../images/author_banner.jpg";
+import authorBanner from "../images/author_banner.jpg";
 
 
 const Author = () => {
@@ -93,9 +93,9 @@ const Author = () => {
           id="profile_banner"
           aria-label="section"
           className="text-light"
-          data-bgimage={`url(${AuthorBannerImage}) top`}
+          data-bgimage={`url(${authorBanner}) top`}
           style={{
-            backgroundImage: `url(${AuthorBannerImage})`,
+            backgroundImage: `url(${authorBanner})`,
             backgroundPosition: "top",
             backgroundRepeat: "no-repeat",
           }}

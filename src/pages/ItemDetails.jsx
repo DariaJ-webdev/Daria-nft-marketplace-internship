@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import EthImage from '../images/ethereum.svg';
+import ethImage from '../images/ethereum.svg';
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import '../css/styles/HotCollection.css';
@@ -193,7 +193,7 @@ const ItemDetails = () => {
                     <div className="spacer-40"></div>
                     <h6>Price</h6>
                     <div className="nft-item-price">
-                      <img src={EthImage} alt="Ethereum" />
+                      <img src={ethImage} alt="Ethereum" />
                       <span>{price}</span>
                     </div>
                   </div>
