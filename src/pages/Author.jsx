@@ -46,27 +46,27 @@ const Author = () => {
     };
   }, [authorId]);
 
-  const AuthorSkeleton = (
+const AuthorSkeleton = (
     <div className="d_profile de-flex">
-      <div className="de-flex-col">
+      <div className="de-flex align-items-center">
         <div className="profile_avatar">
           <Skeleton width="100px" height="100px" borderRadius="50%" />
-          <div className="profile_name">
-            <h4>
-              <Skeleton
-                width="150px"
-                height="24px"
-                borderRadius="3px"
-                style={{ marginBottom: "4px" }}
-              />
-              <Skeleton width="100px" height="16px" borderRadius="3px" />
-            </h4>
-            <span id="wallet" className="profile_wallet">
-              <Skeleton width="300px" height="16px" borderRadius="3px" />
-            </span>
+        </div>
+
+        <div className="profile_info_column" style={{ marginLeft: "10px" }}>
+          <Skeleton
+            width="150px"
+            height="24px"
+            borderRadius="3px"
+            style={{ marginBottom: "8px" }}
+          />
+          <div className="wallet_row" style={{ marginBottom: "8px" }}>
+            <Skeleton width="300px" height="16px" borderRadius="3px" />
           </div>
+          <Skeleton width="100px" height="16px" borderRadius="3px" />
         </div>
       </div>
+
       <div className="profile_follow de-flex">
         <div className="de-flex-col">
           <Skeleton
@@ -93,7 +93,6 @@ const Author = () => {
           id="profile_banner"
           aria-label="section"
           className="text-light"
-         // data-bgimage={`url(${authorBanner}) top`}vercel issue workaround//
           style={{
             backgroundImage: `url(/images/author_banner.jpg`,
             backgroundPosition: "top",

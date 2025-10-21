@@ -4,12 +4,11 @@ import Skeleton from '../UI/Skeleton';
 import React, {useState, useEffect} from 'react';
 
 
-
 const ItemCardSkeleton = ({ index }) => (
     <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12" key={index}>
         <div className="nft__item skeleton-container">
             <div className="author_list_pp">
-            <Skeleton width='40px' height='40px' borderRadius='50%' />
+            <Skeleton width='50px' height='50px' borderRadius='50%' />
             </div>
             <div className="nft__item_wrap">
             <Skeleton width='100%' height='200px' borderRadius='8px' />
@@ -26,7 +25,7 @@ const ItemCardSkeleton = ({ index }) => (
 );
 
 
-const AuthorItems = ({ authorId }) => {
+const AuthorItems = ({ authorId, authorData }) => {
     const [items, setItems] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
         const [activeTab] = useState(1); 
@@ -58,20 +57,24 @@ const AuthorItems = ({ authorId }) => {
         <ItemCardSkeleton key={index} index={index} />
     ));
 
-    const loadedItems = items.map((item, index) => (
+   const loadedItems = items.map((item, index) => {
+        return (
         <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12" key={item.nftId || index}>
             <div className="nft__item">
-                <div className="author_list_pp">
-                    <Link to={`/author/${item.ownerId}`}>
+                <div className="author_list_pp" style={{ minHeight: '50px' }}>
+                    <Link to={`/author/${authorId}`}>                     
                         <img 
                             className="lazy" 
-                            src={item.authorImage} 
-                            alt={item.authorName} 
-                            onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/40x40/cccccc/333333?text=N/A' }} 
-                        />
+                            src={authorData?.authorImage} 
+                            alt={authorData?.authorName}
+                            style={{ width: '50px', height: '50px', borderRadius: '50%'}}
+                            onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/50x50/cccccc/333333?text=N/A' }}/>
                         <i className="fa fa-check"></i>
                     </Link>
+
                 </div>
+
+
                 <div className="nft__item_wrap">
                     <div className="nft__item_extra">
                         <div className="nft__item_buttons">
@@ -112,7 +115,8 @@ const AuthorItems = ({ authorId }) => {
                 </div>
             </div>
         </div>
-    ));
+    );
+});
 
     return (
         <div className="de_tab_content">
