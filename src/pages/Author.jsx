@@ -11,6 +11,7 @@ const Author = () => {
   const { authorId } = useParams();
   const [author, setAuthor] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [isFollowing, setIsFollowing] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -45,6 +46,23 @@ const Author = () => {
       isMounted = false;
     };
   }, [authorId]);
+
+ const handleFollowClick = () => {
+    if (isFollowing) {
+        setAuthor((prevAuthor) => ({
+            ...prevAuthor,
+            followers: (prevAuthor.followers || 1) - 1, 
+        }));
+        setIsFollowing(false);
+    } else {
+        setAuthor((prevAuthor) => ({
+            ...prevAuthor,
+            followers: (prevAuthor.followers || 0) + 1,
+        }));
+        setIsFollowing(true);
+    }
+};
+     
 
 const AuthorSkeleton = (
     <div className="d_profile de-flex">
@@ -148,8 +166,8 @@ const AuthorSkeleton = (
       <div className="profile_follower">
         {author.followers || 0} followers
       </div>
-      <Link to="#" className="btn-main">
-        Follow
+      <Link to="#" className="btn-main" onClick={handleFollowClick}>
+      {isFollowing ? "Following"  : "Follow"}
       </Link>
     </div>
   </div>
